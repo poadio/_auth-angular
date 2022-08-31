@@ -7,14 +7,11 @@ import { OmneediaService } from './omneedia.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  d: any | null[] = [];
+  session = this.omneedia.session;
 
   constructor(private readonly omneedia: OmneediaService) {}
 
   async ngOnInit() {
-    var { data, error } = await this.omneedia.get();
-    this.d = data;
-    console.log(data);
-    console.log(error);
+    this.omneedia.authChanges((_, session) => (this.session = session));
   }
 }

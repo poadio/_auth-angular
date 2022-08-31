@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { createClient, OmneediaClient } from '@omneedia/client-js';
+import {
+  AuthChangeEvent,
+  createClient,
+  Session,
+  OmneediaClient,
+} from '@omneedia/client-js';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -14,8 +19,23 @@ export class OmneediaService {
       environment.omneedia_key
     );
   }
-
-  public async get() {
-    return this.omneedia.from('countries').select();
+  get session() {
+    return this.omneedia.auth.session();
+  }
+  public async signInWithGithub() {
+    return this.omneedia.auth.signIn({
+      provider: 'github',
+    });
+  }
+  public async signInWithEmail(email: string, password: string) {
+    return this.omneedia.auth.signIn({
+      email: email,
+      password: password,
+    });
+  }
+  authChanges(
+    callback: (event: AuthChangeEvent, session: Session | null) => void
+  ) {
+    return this.omneedia.auth.onAuthStateChange(callback);
   }
 }
