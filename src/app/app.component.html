@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<app-auth *ngIf="!session"></app-auth>
+<router-outlet *ngIf="session"></router-outlet>

@@ -7,6 +7,9 @@ import { Auth } from './auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  session = this.omneedia.session;
+  session = this.auth.session;
   constructor(private readonly auth: Auth) {}
+  ngOnInit() {
+    this.auth.authChanges((_, session) => (this.session = session));
+  }
 }
