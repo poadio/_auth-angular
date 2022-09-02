@@ -3,7 +3,7 @@ import {
   AuthChangeEvent,
   createClient,
   Session,
-  SupabaseClient,
+  OmneediaClient,
 } from '@omneedia/client-js';
 import { environment } from '../environments/environment';
 
@@ -14,7 +14,7 @@ export class Auth {
   private omneedia: OmneediaClient;
 
   constructor() {
-    this.supabase = createClient(
+    this.omneedia = createClient(
       environment.omneedia_url,
       environment.omneedia_key
     );
@@ -22,14 +22,6 @@ export class Auth {
 
   get session() {
     return this.omneedia.auth.session();
-  }
-
-  get profile() {
-    return this.omneedia
-      .from('profiles')
-      .select(`username, avatar_url`)
-      .eq('id', this.user?.id)
-      .single();
   }
 
   authChanges(
@@ -44,25 +36,5 @@ export class Auth {
 
   signOut() {
     return this.omneedia.auth.signOut();
-  }
-
-  updateProfile(profile: Profile) {
-    const update = {
-      ...profile,
-      id: this.user?.id,
-      updated_at: new Date(),
-    };
-
-    return this.supabase.from('profiles').upsert(update, {
-      returning: 'minimal', // Don't return the value after inserting
-    });
-  }
-
-  downLoadImage(path: string) {
-    return this.supabase.storage.from('avatars').download(path);
-  }
-
-  uploadAvatar(filePath: string, file: File) {
-    return this.supabase.storage.from('avatars').upload(filePath, file);
   }
 }
