@@ -34,6 +34,10 @@ export class Auth {
     return this.omneedia.auth.signIn({ email });
   }
 
+  signInWithMagicLink(email: string) {
+    return this.omneedia.auth.signIn({ email });
+  }
+
   signOut() {
     return this.omneedia.auth.signOut();
   }

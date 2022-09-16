@@ -1,9 +1,34 @@
-h2 {
-    font-size: 20px;
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #fff;
 }
 
-.pad {
-    padding: 20px;
+p {
+    color: #b3b3b3;
+    font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: "Roboto", sans-serif;
+}
+
+.content {
+    padding: 7rem 0;
+}
+
+h2 {
+    font-size: 20px;
 }
 
 .half,
